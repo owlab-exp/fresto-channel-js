@@ -25,29 +25,12 @@ import fresto.data.FrestoData;
 import fresto.Global;
 
 public class Application extends Controller {
- 	private static String pubHost = "localhost";
-	private static int pubPort = 7000;
 
     public static Result index() {
         //return ok(index.render("Your new application is ready."));
 	StringBuffer sb = new StringBuffer();
-	sb.append("Under construction. \n Available urls:");
-	sb.append("\n");
-	sb.append("http://fresto1.owlab.com:9999/whatIsMyIPAddress");
-	sb.append("http://fresto1.owlab.com:9999/feedUIEvent");
-	sb.append("http://fresto1.owlab.com:9999/statistics");
-	//sb.append("\n");
-	//sb.append("http://fresto1.owlab.com:9999/getR0");
         return ok(sb.toString());
     }
-
-    //@BodyParser.Of(BodyParser.Json.class)
-    //public static Result feedUIEvent() {
-    //        RequestBody body = request().body();
-    //        Logger.info("UI Event = " + body);
-    //        Logger.info("UI Event = " + body.asJson());
-    //        return ok("RECV_OK");
-    //}
   
     public static Result whatIsMyIPAddress() {
 	    String remote = request().remoteAddress();
@@ -57,9 +40,30 @@ public class Application extends Controller {
 
     }
 
+    public static Result feedUIEventByGet() {
+	    response().setHeader("Access-Control-Allow-Origin", "*");
 
-    public static Result feedUIEvent() {
 	    DynamicForm data = Form.form().bindFromRequest();
+
+	    feedUIEvent(data);
+
+	    return ok("RECV_OK");
+    }
+
+    public static Result feedUIEventByPost() {
+	    response().setHeader("Access-Control-Allow-Origin", "*");
+
+	    DynamicForm data = Form.form().bindFromRequest();
+
+	    feedUIEvent(data);
+
+	    return ok("RECV_OK");
+    }
+
+    public static void feedUIEvent(DynamicForm data) {
+	    //response().setHeader("Access-Control-Allow-Origin", "*");
+
+	    //DynamicForm data = Form.form().bindFromRequest();
 	    String stage = data.get("stage");
 	    String uuid = data.get("uuid");
 	    String clientIp = data.get("clientId");
@@ -143,6 +147,6 @@ public class Application extends Controller {
 	           Logger.info("The client event's stage does not match with required: " + stage);
 	    } 
 
-	    return ok("RECV_OK");
+	    //return ok("RECV_OK");
     }
 }

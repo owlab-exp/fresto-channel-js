@@ -1,5 +1,4 @@
-fresto-front
+fresto-channel-js
 ===========
 
-This is to maintain a monitoring application front-end, which interacts with monitoring agents and UI components.
-Thus the front-end does neither include UI components nor server-side monitoring data processing.
+This is to maintain an application to receive performance events from web browsers, in the form of JSON, and convert it to Thrift format to resend it to Event Hub.
