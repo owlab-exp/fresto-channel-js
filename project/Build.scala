@@ -4,7 +4,7 @@ import play.Project._
 
 object ApplicationBuild extends Build {
 
-  val appName         = "fresto-front"
+  val appName         = "fresto-channel-js"
   val appVersion      = "1.0-SNAPSHOT"
 
   val appDependencies = Seq(
